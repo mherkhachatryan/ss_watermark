@@ -8,4 +8,6 @@ Small script to add watermark of SpaceShop logo and instagram information to fol
 pip install -r requirements.txt
 
 python watermark.py -i <path to images>
+
+python watermark.py -h # for more options
 ```
