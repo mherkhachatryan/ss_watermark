@@ -58,7 +58,7 @@ def add_watermark(image_path, watermark1_path, insta_logo_path, output_path, opa
     font_thickness = 100
     text_size, _ = cv2.getTextSize(insta_text, font, font_scale, font_thickness)
     text_x = image.shape[1] - text_size[0] - 300
-    text_y = image.shape[0] - height2 + text_size[1]
+    text_y = image.shape[0] - height2
 
     cv2.putText(image, insta_text, (text_x, text_y), font, 3, (255, 255, 255), 2, cv2.LINE_AA)
 
