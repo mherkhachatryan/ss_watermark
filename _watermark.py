@@ -25,8 +25,12 @@ def add_watermark(image_path, watermark1_path, insta_logo_path, output_path, opa
     original_image = Image.open(image_path)
 
     # Resize the first ss_watermark
+    aspect_ratio = watermark1.shape[1] / watermark1.shape[0]
+
     height1 = int(image.shape[0] * scale1 / 100)
-    width1 = height1
+
+    width1 = int(height1 * aspect_ratio)
+
     dim1 = (width1, height1)
     resized_watermark1 = cv2.resize(watermark1, dim1, interpolation=cv2.INTER_AREA)
 
@@ -48,12 +52,12 @@ def add_watermark(image_path, watermark1_path, insta_logo_path, output_path, opa
 
     # Add fixed text next to the Instagram logo
     font = cv2.FONT_HERSHEY_TRIPLEX
-    insta_text = "@space_shop42"
+    insta_text = "@_space42_"
     font_scale = 2
     font_thickness = 100
     text_size, _ = cv2.getTextSize(insta_text, font, font_scale, font_thickness)
     text_x = image.shape[1] - text_size[0] - 300
-    text_y = image.shape[0] - height2
+    text_y = image.shape[0] - height2 + 70
 
     cv2.putText(image, insta_text, (text_x, text_y), font, 3, (255, 255, 255), 2, cv2.LINE_AA)
 
