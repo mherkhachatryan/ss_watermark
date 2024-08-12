@@ -14,7 +14,9 @@ a = Analysis(['watermark.py'],
              binaries=numpy_binaries + cv2_binaries,
              datas=[('img', 'img')] + numpy_datas + cv2_datas,
              hiddenimports=['numpy', 'numpy.core._multiarray_umath',
-                            'numpy.core.multiarray'] + numpy_hiddenimports + cv2_hiddenimports,
+                            'numpy.core.multiarray', 'numpy.random.common',
+                            'numpy.random.bounded_integers', 'numpy.random.entropy',
+                            'numpy.random', 'numpy.ctypeslib'] + numpy_hiddenimports + cv2_hiddenimports,
              hookspath=[],
              hooksconfig={},
              runtime_hooks=[],
@@ -23,8 +25,9 @@ a = Analysis(['watermark.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-pyz = PYZ(a.pure, a.zipped_data,
-             cipher=block_cipher)
+
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+
 exe = EXE(pyz,
           a.scripts,
           a.binaries,
@@ -40,17 +43,12 @@ exe = EXE(pyz,
           runtime_tmpdir=None,
           console=True,
           disable_windowed_traceback=False,
-          target_arch=None,
+          target_arch="arm64" if sys.platform == 'darwin' else None,
           codesign_identity=None,
-          entitlements_file=None,
-          )
+          entitlements_file=None )
 
 if sys.platform == 'darwin':
     app = BUNDLE(exe,
                  name='s42_watermark.app',
                  icon=None,
-                 bundle_identifier=None,
-                 info_plist={
-                     'NSHighResolutionCapable': 'True'
-                 },
-                 )
+                 bundle_identifier=None)
