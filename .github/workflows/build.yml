@@ -26,7 +26,7 @@ jobs:
           pip install pyinstaller==6.10.0
       - name: Build with PyInstaller
         run: |
-          pyinstaller --add-data "img;img" watermark.spec
+          pyinstaller watermark.spec
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v2
         with:
@@ -52,7 +52,7 @@ jobs:
           pip install pyinstaller==6.10.0
       - name: Build with PyInstaller
         run: |
-          pyinstaller --add-data "img:img" watermark.spec
+          pyinstaller watermark.spec
       - name: Compress .app bundle
         run: |
           cd dist
