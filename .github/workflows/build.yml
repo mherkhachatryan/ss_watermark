@@ -35,16 +35,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.9'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
       - name: Build with PyInstaller
-        run: pyinstaller s42_watermark.spec
+        run: pyinstaller watermark.spec
+      - name: Compress .app bundle
+        run: |
+          cd dist
+          zip -r s42_watermark.zip s42_watermark.app
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v2
         with:
           name: s42_watermark-macos
-          path: dist/s42_watermark.app
+          path: dist/s42_watermark.zip
