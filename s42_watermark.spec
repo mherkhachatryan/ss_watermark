@@ -31,8 +31,8 @@ exe = EXE(pyz,
           runtime_tmpdir=None,
           console=True )
 
-if sys.platform == 'darwin':
-    app = BUNDLE(exe,
-                 name='s42_watermark.app',
-                 icon=None,
-                 bundle_identifier=None)
+
+app = BUNDLE(exe,
+             name='s42_watermark.app',
+             icon=None,
+             bundle_identifier=None)
