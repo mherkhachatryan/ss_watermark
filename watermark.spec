@@ -1,12 +1,21 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+import sys
+import os
+from PyInstaller.utils.hooks import collect_all
+
 block_cipher = None
+
+# Collect all numpy and cv2 files
+numpy_datas, numpy_binaries, numpy_hiddenimports = collect_all('numpy')
+cv2_datas, cv2_binaries, cv2_hiddenimports = collect_all('cv2')
 
 a = Analysis(['watermark.py'],
              pathex=[],
-             binaries=[],
-             datas=[('img', 'img')],
-             hiddenimports=['numpy', 'numpy.core.multiarray'],
+             binaries=numpy_binaries + cv2_binaries,
+             datas=[('img', 'img')] + numpy_datas + cv2_datas,
+             hiddenimports=['numpy', 'numpy.core._multiarray_umath',
+                            'numpy.core.multiarray'] + numpy_hiddenimports + cv2_hiddenimports,
              hookspath=[],
              hooksconfig={},
              runtime_hooks=[],
@@ -36,8 +45,6 @@ exe = EXE(pyz,
           codesign_identity=None,
           entitlements_file=None )
 
-# Only create BUNDLE for macOS
-import sys
 if sys.platform == 'darwin':
     app = BUNDLE(exe,
                  name='s42_watermark.app',
