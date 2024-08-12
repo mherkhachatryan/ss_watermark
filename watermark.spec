@@ -42,10 +42,15 @@ exe = EXE(pyz,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
-          entitlements_file=None )
+          entitlements_file=None,
+          )
 
 if sys.platform == 'darwin':
     app = BUNDLE(exe,
                  name='s42_watermark.app',
                  icon=None,
-                 bundle_identifier=None)
+                 bundle_identifier=None,
+                 info_plist={
+                     'NSHighResolutionCapable': 'True'
+                 },
+                 )

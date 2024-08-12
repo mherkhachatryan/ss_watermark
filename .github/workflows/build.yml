@@ -49,10 +49,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pyinstaller==4.5.1
+          pip install pyinstaller==6.10.0  # Using a more recent version of PyInstaller
       - name: Build with PyInstaller
         run: |
-          pyinstaller watermark.spec
+          pyinstaller --target-arch arm64 watermark.spec
       - name: Compress .app bundle
         run: |
           cd dist
@@ -60,5 +60,5 @@ jobs:
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v2
         with:
-          name: s42_watermark-macos
+          name: s42_watermark-macos-arm64
           path: dist/s42_watermark.zip
