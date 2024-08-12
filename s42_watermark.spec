@@ -6,8 +6,9 @@ a = Analysis(['watermark.py'],
              pathex=[],
              binaries=[],
              datas=[('img', 'img')],
-             hiddenimports=['pkg_resources.py2_warn', 'binascii'],
+             hiddenimports=['numpy', 'numpy.core.multiarray'],
              hookspath=[],
+             hooksconfig={},
              runtime_hooks=[],
              excludes=[],
              win_no_prefer_redirects=False,
@@ -18,23 +19,27 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
+          a.binaries,
+          a.zipfiles,
+          a.datas,
           [],
-          exclude_binaries=True,
           name='s42_watermark',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=False )
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               strip=False,
-               upx=True,
-               upx_exclude=[],
-               name='s42_watermark')
-app = BUNDLE(coll,
-             name='s42_watermark.app',
-             icon=None,
-             bundle_identifier=None)
+          upx_exclude=[],
+          runtime_tmpdir=None,
+          console=True,
+          disable_windowed_traceback=False,
+          target_arch=None,
+          codesign_identity=None,
+          entitlements_file=None )
+
+# Only create BUNDLE for macOS
+import sys
+if sys.platform == 'darwin':
+    app = BUNDLE(exe,
+                 name='s42_watermark.app',
+                 icon=None,
+                 bundle_identifier=None)
