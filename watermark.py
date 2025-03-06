@@ -33,7 +33,7 @@ def parse_arguments():
                         help='The scale of the logo ss_watermark as a percentage of the image height. Default is 10.')
     parser.add_argument('-s2', '--scale2', type=int, default=3,
                         help='The scale of the instagram ss_watermark as a percentage of the image height. Default is 3.')
-    parser.add_argument('-q', '--quality', type=int, default=100,
+    parser.add_argument('-q', '--quality', type=int, default=70,
                         help='Quality of the output image as a percentage. Default is 100.')
     parser.add_argument('--compress_only', action='store_true',
                         help='Only compress the images, do not add a watermark.')
