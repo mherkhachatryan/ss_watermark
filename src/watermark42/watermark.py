@@ -17,7 +17,7 @@ def resource_path(relative_path):
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
     except Exception:
-        base_path = os.path.abspath(".")
+        base_path = os.path.abspath("../..")
 
     return os.path.join(base_path, relative_path)
 
@@ -54,7 +54,7 @@ def main():
     else:
         images_path = Path(args.images_path) if args.images_path else Path.cwd()
 
-    watermarks_path = Path(resource_path("img"))
+    watermarks_path = Path(resource_path("../../assets/img"))
     logo_path = watermarks_path / "Space_42_logo.png"
     insta_logo = watermarks_path / "instagram.png"
 

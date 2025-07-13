@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "spaceshop42-watermark"
+version = "0.1.0"
+description = "One-click watermarking & compression tool with Streamlit UI."
+authors = ["SpaceShop42 <tech@spaceshop42.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+  { include = "watermark42", from = "src" }   # src/watermark42/*
+]
+
+[tool.poetry.dependencies]
+python      = "^3.12"
+opencv-python-headless = "4.6.0.66"           # headless variant → smaller bundle
+Pillow      = "10.3.0"
+piexif      = "1.1.3"
+tqdm        = "4.66.4"
+numpy       = "1.26.4"
+streamlit   = "^1.35"                         # UI layer
+
+[tool.poetry.scripts]
+ss42wm = "watermark42.cli:main"               # console entry-point
+
+[tool.poetry.group.dev.dependencies]          # only for dev / CI
+pyinstaller = "^6.7"
+pytest      = "^8.2"
+black       = "^24.4"
+ruff        = "^0.4"
+pre-commit  = "^3.7"
+
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"
