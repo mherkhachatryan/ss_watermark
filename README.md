@@ -13,3 +13,19 @@ python watermark.py -i <path to images>
 
 python watermark.py -h # for more options
 ```
+
+There is to options to run with adding watermark and only compression
+
+For adding watermark, recommended way of running
+
+```shell
+
+python watermark.py -i 'path' -q 70
+```
+
+For adding with compression
+
+```shell
+
+python watermark.py -i 'path' -q 90 --compress_only
+```
